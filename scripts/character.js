@@ -8,7 +8,12 @@ class Character {
     this.speedX = 0;
     this.speedY = 10;
 
-    let jumping = true;
+    this.gravity = 0.08;
+
+    this.characterImage = new Image();
+    this.characterImage.src = "/images/character.PNG";
+
+    this.setBindingKeys();
   }
 
   setBindingKeys() {
@@ -16,27 +21,40 @@ class Character {
       event.keyCode === 38 ? this.jump() : null;
     });
   }
+   //move logic to game.js
 
   jump() {
-    this.y -= this.speedY;
+    if (this.speedY >= 0) {
+      this.speedY = -4;
+    }
   }
 
-  loop() {
+  runLogic() {
+    const newY = this.y + this.speedY;
+
+    if (newY < this.game.$canvas.height - 50) {
+      this.speedY = this.speedY + this.gravity;
+      this.y = newY;
+    } else {
+      this.speedY = 0;
+    }
+
+    // this.y += this.speedY;
+    /*
     if (controller.up && character.jumping == false) {
       character.speedY -= 20;
       character.jumping = true;
     }
-
     character.speedY += 1.5; // gravity
     character.x += character.speedX;
     character.y += character.speedY;
-    character.speedX *= 0.9; // friction
-    character.speedY *= 0.9; // friction
+    //character.speedX *= 0.9; // friction
+    //character.speedY *= 0.9; // friction
 
     // if rectangle is falling below floor line
-    if (character.y > 500 - 25 - 50) {
+    if (character.y > 500 - 25) {
       character.jumping = false;
-      character.y = 500 - 25 - 50;
+      character.y = 500 - 25;
       character.speedY = 0;
     }
 
@@ -47,17 +65,15 @@ class Character {
     //} else if (character.x > 500) {// if rectangle goes past right boundary
     //  rectangle.x = -50;
     //}
+    */
   }
 
   draw() {
-    const characterImage = new Image();
     const context = this.game.context;
-
-    characterImage.src = "/images/character.PNG";
 
     let characterX = this.x;
     let characterY = this.y;
 
-    context.drawImage(characterImage, characterX, characterY, 50, 50);
+    context.drawImage(this.characterImage, characterX, characterY, 50, 50);
   }
 }

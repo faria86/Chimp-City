@@ -12,27 +12,26 @@ class Game {
   }
 
   reset() {
-    this.character = new Character(this, 10, this.$canvas.height - 60);
-    this.hunter = new Hunter(
-      this,
-      this.$canvas.width + 10,
-      this.$canvas.height - 150
+    this.character = new Character(this, 100, this.$canvas.height - 50);
+    this.hunters = [];
+    this.bananas = [];
+    this.hunters.push(
+      new Hunter(this, this.$canvas.width + 10, this.$canvas.height - 60)
     );
-    this.banana = new Banana(
-      this,
-      this.$canvas.width + 10,
-      this.$canvas.height - 60
+    this.bananas.push(
+      new Banana(this, this.$canvas.width + 10, this.$canvas.height - 140)
     );
     this.background = new Background(this);
 
-    this.score = 30;
+    //this.score = 30;
 
-    this.speed = 1;
+    this.speed = 5;
   }
 
   start() {
     this.running = true;
     this.loop();
+    this.createHunterAndBananaLoop();
   }
 
   //  loose () {
@@ -48,14 +47,35 @@ class Game {
     if (this.running) {
       setTimeout(() => {
         this.loop();
-      }, 500 / (this.speed * 0.5)); // or speed 1
+      }, 500 / (this.speed * 2)); // or speed 1
     }
   }
 
+  createHunterAndBananaLoop() {
+    if (Math.random() > 0.7) {
+      this.bananas.push(
+        new Banana(this, this.$canvas.width + 10, this.$canvas.height - 60)
+      );
+    } else {
+      this.hunters.push(
+        new Hunter(this, this.$canvas.width + 10, this.$canvas.height - 150)
+      );
+    }
+
+    setTimeout(() => {
+      this.createHunterAndBananaLoop();
+    }, 3000);
+  }
+
   runLogic() {
-    this.hunter.runLogic();
-    this.banana.runLogic();
+    for (let hunter of this.hunters) {
+      hunter.runLogic();
+    }
+    for (let banana of this.bananas) {
+      banana.runLogic();
+    }
     this.background.runLogic();
+    this.character.runLogic();
   }
 
   drawGameOver() {
@@ -69,7 +89,7 @@ class Game {
   }
 
   drawScoreboard() {
-    const socre = 25;
+    const score = 25;
 
     context.font = "24px sans-serif";
 
@@ -85,8 +105,12 @@ class Game {
 
     this.background.draw();
     this.character.draw();
-    this.hunter.draw();
-    this.banana.draw();
     //this.scoreBoard.draw();
+    for (let hunter of this.hunters) {
+      hunter.draw();
+    }
+    for (let banana of this.bananas) {
+      banana.draw();
+    }
   }
 }
