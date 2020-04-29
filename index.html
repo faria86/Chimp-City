@@ -7,13 +7,18 @@
     <link href="/styles/styles.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <section>
-      <canvas width="700" height="500"></canvas>
-      <aside>
-        <button id="start">Start</button>
-        <button id="pause">Pause</button>
-      </aside>
-    </section>
+    <div class="game-display">
+      <div class="canvas">
+        <canvas width="700" height="500"></canvas>
+      </div>
+      <div class="img">
+        <img src="/images/play_button.JPG">
+      </div>
+    </div>
+    <div>
+      <button id="start">Start</button>
+      <button id="pause">Pause</button>
+    </div>
     <script src="./scripts/scoreboard.js"></script>
     <script src="./scripts/character.js"></script>
     <script src="./scripts/obstacle.js"></script>

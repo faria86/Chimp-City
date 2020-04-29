@@ -1,5 +1,3 @@
-// class: runLogic() method; draw() method;
-
 class Background {
   constructor(game) {
     this.game = game;
@@ -12,10 +10,13 @@ class Background {
   
   runLogic() {
     this.x--;
+    if (this.img.width) {
+      this.x = this.x % this.img.width;
+    }
   }
 
     /*if (this.img.width) {
-      this.x = this.x % this.imgwidth;
+      this.x = this.x % this.img.width;
     }
     setTimeout(() => {
       this.draw();

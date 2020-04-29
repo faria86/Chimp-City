@@ -35,97 +35,120 @@ class Game {
   }
 
   start() {
+    this.reset();
     this.running = true;
+    this.gameOver = false;
     this.loop();
     this.createHunterAndBananaLoop();
     this.checkColisions();
   }
 
-  loop() {
-    this.runLogic();
-    this.draw();
-
-    if (this.running) {
-      setTimeout(() => {
-        this.loop();
-      }, 500 / (this.speed * 2));
+  pause(){
+    if(this.gameOver){
+      return;
     }
+
+    if(this.running){
+      this.running = false;
+    } else {
+      this.running = true;
+      this.loop();
+      this.createHunterAndBananaLoop();
+      this.checkColisions();
+    }    
   }
 
-  createHunterAndBananaLoop() {
-    this.hunters = this.hunters.filter(
-      function(hunter){ 
-        return hunter.x > 0;
-      });
-      
-    this.bananas = this.bananas.filter(
-      function(banana){ 
-        return banana.x > 0;
-      });
-    
-    if (Math.random() > 0.7) {
-      this.bananas.push(
-        new Banana(this, this.$canvas.width + 10, this.$canvas.height - 70, 50, 50) && 
-        new Banana(this, this.$canvas.width + 10, this.$canvas.height - 140, 50, 50)
-      );
-    } 
-    else {
-      this.hunters.push(
-        new Hunter(this, this.$canvas.width + 10, this.$canvas.height - 70, 50, 50)
-      );
-    }
+  loop() {
+    if(!this.gameOver) {
+      this.runLogic();
+      this.draw();
 
-    setTimeout(() => {
-      this.createHunterAndBananaLoop();
-    }, 2500);
+      if (this.running) {
+        setTimeout(() => {
+          this.loop();
+        }, 500 / (this.speed * 2));
+      }
+    }    
+  }
+
+  createHunterAndBananaLoop() { 
+    if (!this.gameOver) {
+      if (Math.random() > 0.7) {
+        this.bananas.push(
+          new Banana(this, this.$canvas.width + 10, this.$canvas.height - 70, 50, 50) && 
+          new Banana(this, this.$canvas.width + 10, this.$canvas.height - 140, 50, 50)
+        );
+      } 
+      else {
+        this.hunters.push(
+          new Hunter(this, this.$canvas.width + 10, this.$canvas.height - 70, 50, 50)
+        );
+      }
+
+      setTimeout(() => {
+        this.createHunterAndBananaLoop();
+      }, 2500);
+    }
   }
 
   checkColisions() {
-    this.checkColisionsBananas();
-    this.checkColisionsHunters();
+    if (!this.gameOver) {
+      this.checkColisionsBananas();
+      this.checkColisionsHunters();
 
-    if (this.running) {
-      setTimeout(() => {
-        this.checkColisions();
-      }, 500 / (this.speed * 2)); // or speed 1
+      if (this.running) {
+        setTimeout(() => {
+          this.checkColisions();
+        }, 500 / (this.speed * 2)); // or speed 1
+      }
     }
   }
 
   checkColisionsBananas() {
     if(this.bananas && this.bananas.length > 0) {
-      
-      const banana = this.bananas[this.bananas.length -1];
+
       const character = this.character;
-  
-      if ( (character.x + character.width) >= (banana.x) 
-        && (character.x) <= (banana.x + banana.width) 
-        && (character.y + character.height) >= (banana.y) 
-        && (character.y) <= (banana.y + banana.height) ) {
-          // eatingNoise.play();
-          this.score += 1;
-        }   
-        // remove banana with sound and effect
+
+      for(var i = 0; i < this.bananas.length; i++) {
+        
+        const banana = this.bananas[i];
+
+        if ( (character.x + character.width) >= (banana.x)
+          && (character.x) <= (banana.x + banana.width)
+          && (character.y + character.height) >= (banana.y)
+          && (character.y) <= (banana.y + banana.height) ) {
+          
+            this.bananas.splice(i,1);
+            // eatingNoise.play();
+            this.score += 1;
+        }
+      }
     }
-  }    
+  }      
 
   checkColisionsHunters() {
     if(this.hunters && this.hunters.length > 0) {
       
-      const hunter = this.hunters[this.hunters.length -1];
       const character = this.character;
   
-      if ( (character.x + character.width) >= (hunter.x) 
+      for(var i = 0; i < this.hunters.length; i++) {
+
+        const hunter = this.hunters[i];
+
+        if ( (character.x + character.width) >= (hunter.x) 
         && (character.x) <= (hunter.x + hunter.width) 
         && (character.y + character.height) >= (hunter.y) 
-        && (character.y) <= (hunter.y + hunter.height) ) {
-          this.score -= 5;
-          if (this.score = 0) {
+        && (character.y) <= (hunter.y + hunter.height) ) {          
+          if (this.score - 5 <= 0) {
+            this.score = 0;
             this.drawGameOver();
-          }
-          // eatingNoise.play();
-          this.speed += 0.20;
+          } else {
+            this.score -= 5;
+            this.hunters.splice(i,1);
+            this.speed += 0.20;
+          }          
         }
-       // remove hunter with sound and effect
+      }
     } 
   }
 
@@ -141,17 +164,22 @@ class Game {
     this.character.runLogic();
   }
 
-  
   drawGameOver() {
+    this.gameOver = true;
+    this.clearEverything();    
+    this.drawGameOverImage();    
+  }
+
+  drawGameOverImage(){
     const context = this.context;
-    
-    context.save();
-    context.draw = "/images/game_over.JPG";
-    context.restore();
-    
-    /*setTimeout(() => {
-      this.drawGameOver();
-    }, 5000);*/
+    var gameOverImg = new Image();
+    gameOverImg.src = "/images/game_over.JPG";
+    context.drawImage(gameOverImg, 0, 0, this.$canvas.width, this.$canvas.height);
+    if (this.gameOver) {
+      setTimeout(() => {
+        this.drawGameOverImage();
+      }, 500 / (this.speed * 2));
+    }
   }
   
   
@@ -175,12 +203,5 @@ class Game {
     
   }
 }
-/*
-loose () {
-  if (this.score = 0) {
-  // Play sound of loosing
-  // loosingNoise.play();
-  this.reset();
-  }
-}
-*/
+
+

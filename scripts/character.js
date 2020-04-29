@@ -1,4 +1,3 @@
-// class: runLogic() method; draw() method; detectCollision()
 class Character {
   constructor(game, x, y, width, height) {
     this.game = game;
