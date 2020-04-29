@@ -1,19 +1,15 @@
-// class: runLogic() method; draw() method; detectCollision()
-
 class Hunter {
-  constructor(game, x, y) {
+  constructor(game, x, y, width, height) {
     this.game = game;
     this.x = x;
     this.y = y;
+    this.width = width;
+    this.height = height;
     this.speed = 10;
   }
   
   runLogic() {
     this.x -= this.speed;
-  }
-  
-  checkCollisionWithHunter() {
-    //redo this check collision functions
   }
   
   draw() {
@@ -22,35 +18,22 @@ class Hunter {
     const context = this.game.context;
     const hunterImage = new Image();
     hunterImage.src = "/images/enemy-police.png";
-    context.drawImage(hunterImage, characterX, characterY, 50, 50);
+    context.drawImage(hunterImage, characterX, characterY, this.width, this.height);
   }
 }
 
 class Banana {
-  constructor(game, x, y) {
+  constructor(game, x, y, width, height) {
     this.game = game;
     this.x = x;
     this.y = y;
+    this.width = width;
+    this.height = height;
     this.speed = 8;
   }
   
   runLogic() {
     this.x -= this.speed;
-  }
-  
-  checkCollisionWithBanana() {
-    /*
-    const banana = this.game.banana;
-    const character = this.game.character
-    
-    if ( (character.x + character.width) >= (banana.x) &&
-    (character.x) <= (banana.x + banana.width) && 
-    (character.y + character.height) >= (banana.y) && 
-    (character.y) <= (banana.y + banana.height) ) {
-      //this.game.score -=5;
-      this.game.speed += 0.5;
-    }
-    */
   }
   
   draw() {
@@ -60,6 +43,6 @@ class Banana {
     
     const bananaImage = new Image();
     bananaImage.src = "/images/banana.png";
-    context.drawImage(bananaImage, characterX, characterY, 50, 50);
+    context.drawImage(bananaImage, characterX, characterY, this.width, this.height);
   }
 }
