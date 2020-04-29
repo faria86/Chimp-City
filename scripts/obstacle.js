@@ -5,7 +5,9 @@ class Hunter {
     this.y = y;
     this.width = width;
     this.height = height;
-    this.speed = 10;
+    this.speed = 8;
+    this.hunterImage = new Image();
+    this.hunterImage.src = "/images/enemy-police.png";
   }
   
   runLogic() {
@@ -13,12 +15,10 @@ class Hunter {
   }
   
   draw() {
+    const context = this.game.context;
     let characterX = this.x;
     let characterY = this.y;
-    const context = this.game.context;
-    const hunterImage = new Image();
-    hunterImage.src = "/images/enemy-police.png";
-    context.drawImage(hunterImage, characterX, characterY, this.width, this.height);
+    context.drawImage(this.hunterImage, characterX, characterY, this.width, this.height);
   }
 }
 
@@ -30,6 +30,8 @@ class Banana {
     this.width = width;
     this.height = height;
     this.speed = 8;
+    this.bananaImage = new Image();
+    this.bananaImage.src = "/images/banana.png";
   }
   
   runLogic() {
@@ -41,8 +43,6 @@ class Banana {
     let characterX = this.x;
     let characterY = this.y;
     
-    const bananaImage = new Image();
-    bananaImage.src = "/images/banana.png";
-    context.drawImage(bananaImage, characterX, characterY, this.width, this.height);
+    context.drawImage(this.bananaImage, characterX, characterY, this.width, this.height);
   }
 }

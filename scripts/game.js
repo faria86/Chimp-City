@@ -101,8 +101,8 @@ class Game {
         && (character.x) <= (banana.x + banana.width) 
         && (character.y + character.height) >= (banana.y) 
         && (character.y) <= (banana.y + banana.height) ) {
-          this.score += 1;
           // eatingNoise.play();
+          this.score += 1;
         }   
         // remove banana with sound and effect
     }
@@ -119,17 +119,16 @@ class Game {
         && (character.y + character.height) >= (hunter.y) 
         && (character.y) <= (hunter.y + hunter.height) ) {
           this.score -= 5;
-          // eatingNoise.play();
           if (this.score = 0) {
-            alert(drawGameOver())
+            this.drawGameOver();
           }
-          this.speed += 0.25;
+          // eatingNoise.play();
+          this.speed += 0.20;
         }
        // remove hunter with sound and effect
     } 
   }
 
-  
   runLogic() {
     for (let hunter of this.hunters) {
       hunter.runLogic();
@@ -150,9 +149,9 @@ class Game {
     context.draw = "/images/game_over.JPG";
     context.restore();
     
-    setTimeout(() => {
+    /*setTimeout(() => {
       this.drawGameOver();
-    }, 5000);
+    }, 5000);*/
   }
   
   

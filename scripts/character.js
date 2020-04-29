@@ -16,13 +16,13 @@ class Character {
 
     this.setBindingKeys();
   }
-
+  
+  //move logic to game.js
   setBindingKeys() {
     window.addEventListener("keydown", (event) => {
       event.keyCode === 38 ? this.jump() : null;
     });
   }
-   //move logic to game.js
 
   jump() {
     if (this.speedY >= 0) {
@@ -43,10 +43,10 @@ class Character {
 
   draw() {
     const context = this.game.context;
-
+    
     let characterX = this.x;
     let characterY = this.y;
-
+    
     context.drawImage(this.characterImage, characterX, characterY, this.width, this.height);
   }
 }

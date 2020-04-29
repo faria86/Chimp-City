@@ -7,19 +7,20 @@ class Background {
     this.img.src = "/images/game_background.PNG";
     this.x = 0;
     this.y = 0;
-    this.speed = 8;
+    this.speed = 1;
   }
   
   runLogic() {
     this.x--;
-/*
-    if (this.img.width) {
-      this.x = this.x % this.img.width;
+  }
+
+    /*if (this.img.width) {
+      this.x = this.x % this.imgwidth;
     }
     setTimeout(() => {
-      this.loop();
-    }, 1000 / 250); */
-  }
+      this.draw();
+    }, 1000 / 250);*/
+
 
   draw() {
     const context = this.game.context;
@@ -30,5 +31,4 @@ class Background {
     context.drawImage(this.img, this.x + this.game.$canvas.width, 0);
     context.drawImage(this.img, this.x + this.game.$canvas.width * 2, 0);
   }
-
 }
