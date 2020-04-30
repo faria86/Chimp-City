@@ -1,4 +1,4 @@
-// const loosingNoise = new Audio('');
+//const eatingBananaNoise = new Audio('https://anjaboettcher.github.io/The-very-hungry-caterpillar-game/images/HONK.wav');
 
 class Game {
   constructor($canvas) {
@@ -31,7 +31,7 @@ class Game {
 
     this.score = 20;
 
-    this.speed = 6;
+    this.speed = 8;
   }
 
   start() {
@@ -117,10 +117,9 @@ class Game {
           && (character.x) <= (banana.x + banana.width)
           && (character.y + character.height) >= (banana.y)
           && (character.y) <= (banana.y + banana.height) ) {
-          
             this.bananas.splice(i,1);
-            // eatingNoise.play();
             this.score += 1;
+            //eatingBananaNoise.play();
         }
       }
     }
@@ -144,6 +143,7 @@ class Game {
             this.drawGameOver();
           } else {
             this.score -= 5;
+            //collisionwithenemy.play();
             this.hunters.splice(i,1);
             this.speed += 0.20;
           }          
