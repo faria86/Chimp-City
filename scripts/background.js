@@ -14,15 +14,7 @@ class Background {
       this.x = this.x % this.img.width;
     }
   }
-
-    /*if (this.img.width) {
-      this.x = this.x % this.img.width;
-    }
-    setTimeout(() => {
-      this.draw();
-    }, 1000 / 250);*/
-
-
+  
   draw() {
     const context = this.game.context;
     const width = this.game.$canvas.width;

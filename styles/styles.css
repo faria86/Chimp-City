@@ -1,3 +1,48 @@
-display-game {
+body {
+  font-family: 'Luckiest Guy', cursive;
+}
+
+.container {
    display: flex;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-left: 10px;
+  margin-left: 0em;
+}
+
+h1 {
+  font-size: 8rem;
+  color: #FF5733;
+  padding-bottom: 10px;
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+a {
+  padding-top: 20px;
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+#start{
+  width: 100px;
+  color: white;
+  border-radius: 4px;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  background: #FF5733;
+  margin: auto auto;
+  font-family: sans-serif;
+}
+
+#pause {
+  width: 100px;
+  color: white;
+  border-radius: 4px;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  background: #FF5733;
+  font-family: sans-serif;
 }

@@ -29,9 +29,9 @@ class Game {
 
     this.background = new Background(this);
 
-    this.score = 25;
+    this.score = 20;
 
-    this.speed = 5;
+    this.speed = 6;
   }
 
   start() {
@@ -44,7 +44,7 @@ class Game {
   }
 
   pause(){
-    if(this.gameOver){
+    if(this.gameOver) {
       return;
     }
 
@@ -87,7 +87,7 @@ class Game {
 
       setTimeout(() => {
         this.createHunterAndBananaLoop();
-      }, 2500);
+      }, 2000);
     }
   }
 

@@ -5,20 +5,21 @@
     <meta name="viewport" content="width=device-width">
     <title>Chimp City</title>
     <link href="/styles/styles.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
   </head>
   <body>
-    <div class="game-display">
+    <div class="container">
       <div class="canvas">
         <canvas width="700" height="500"></canvas>
       </div>
-      <div class="img">
-        <img src="/images/play_button.JPG">
+      <div class="text">
+        <h1>Chimp City</h1>
+        <a>Grab as much bananas as possible and avoid being catch by the Hunter!</a>
+        <div class="buttons">
+          <button id="start">Start</button>
+          <button id="pause">Pause</button>
+        </div>
       </div>
-    </div>
-    <div>
-      <button id="start">Start</button>
-      <button id="pause">Pause</button>
-    </div>
     <script src="./scripts/scoreboard.js"></script>
     <script src="./scripts/character.js"></script>
     <script src="./scripts/obstacle.js"></script>
