@@ -72,7 +72,7 @@ class Game {
 
   createHunterAndBananaLoop() { 
     if (!this.gameOver) {
-      if (Math.random() > 0.7) {
+      if (Math.random() > 0.8) {
         this.bananas.push(
           new Banana(this, this.$canvas.width + 10, this.$canvas.height - 70, 50, 50) && 
           new Banana(this, this.$canvas.width + 10, this.$canvas.height - 140, 50, 50)
