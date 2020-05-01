@@ -1,4 +1,6 @@
-//const eatingBananaNoise = new Audio('https://anjaboettcher.github.io/The-very-hungry-caterpillar-game/images/HONK.wav');
+const eatingBananaNoise = new Audio('../images/bite.wav')
+const collisionWithEnemy = new Audio('../images/MonkeySoundEffect.mp3')
+const endGame = new Audio ('../images/sadend.wav')
 
 class Game {
   constructor($canvas) {
@@ -11,18 +13,15 @@ class Game {
   }
 
   reset() {
-    // adjust width and height
     this.character = new Character(this, 100, this.$canvas.height - 50, 40, 50);
 
     this.hunters = [];
     this.bananas = [];
 
-    // adjust width and height
     this.hunters.push(
       new Hunter(this, this.$canvas.width + 10, this.$canvas.height - 60, 40, 50)
     );
 
-    // adjust width and height
     this.bananas.push(
       new Banana(this, this.$canvas.width + 10, this.$canvas.height - 60, 40, 50)
     );
@@ -119,7 +118,7 @@ class Game {
           && (character.y) <= (banana.y + banana.height) ) {
             this.bananas.splice(i,1);
             this.score += 1;
-            //eatingBananaNoise.play();
+            eatingBananaNoise.play();
         }
       }
     }
@@ -141,9 +140,10 @@ class Game {
           if (this.score - 5 <= 0) {
             this.score = 0;
             this.drawGameOver();
+
           } else {
             this.score -= 5;
-            //collisionwithenemy.play();
+            collisionWithEnemy.play();
             this.hunters.splice(i,1);
             this.speed += 0.20;
           }          
@@ -167,7 +167,8 @@ class Game {
   drawGameOver() {
     this.gameOver = true;
     this.clearEverything();    
-    this.drawGameOverImage();    
+    this.drawGameOverImage();  
+    endGame.play();  
   }
 
   drawGameOverImage(){
